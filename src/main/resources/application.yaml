@@ -1,0 +1,53 @@
+management:
+  info:
+    git:
+      mode: full
+
+info:
+  build:
+    version: #version#
+
+server:
+  servlet:
+    context-path: /auf-engine/
+
+
+spring:
+  application:
+    name: auf-engine
+  main:
+    banner-mode: off
+  output:
+    ansi:
+      enabled: always
+  data:
+    mongodb:
+      auto-index-creation: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: hungtran6360
+    password: lvkajxwtsjqemmgm
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+infrastructure:
+  services:
+    enabled: true
+
+    mongodb:
+      cluster:
+        name: mongo-aufgabe-dev
+        url: "mongodb+srv://admin:admin@mongo-aufgabe-dev.671lr.mongodb.net/?retryWrites=true&w=majority"
+      database:
+        name: aufgabe-engine-dev
+
+
+
+logging:
+  level:
+    root: INFO
