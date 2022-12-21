@@ -33,6 +33,9 @@ public class StatusService {
             statuses.add(placementOrder, createdStatus.getId());
         }
 
+        project.setStatusIds(statuses);
+        projectRepository.save(project);
+
         return createdStatus;
     }
 

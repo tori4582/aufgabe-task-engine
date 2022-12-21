@@ -3,7 +3,6 @@ package com.aufgabe.engine.service;
 import com.aufgabe.engine.models.Project;
 import com.aufgabe.engine.models.request.GeneralProjectRequest;
 import com.aufgabe.engine.repository.ProjectRepository;
-import javafx.scene.paint.Color;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -41,11 +40,7 @@ public class ProjectService {
                 .description(projectInformation.getDescription())
                 .color(
                         ofNullable(projectInformation.getColor())
-                                .orElse(Color.rgb(
-                                        random.nextInt(256),
-                                        random.nextInt(256),
-                                        random.nextInt(256)
-                                ).toString())
+                                .orElse(null)
                 )
                 .build();
 
@@ -63,11 +58,6 @@ public class ProjectService {
 
     public List<Project> getAllProjects() {
         return projectRepository.findAll();
-    }
-
-    public Project getProjectByName(String projectName) {
-        return ofNullable(projectRepository.getProjectByName(projectName))
-                .orElseThrow();
     }
 
     public Project getProject(String id) {

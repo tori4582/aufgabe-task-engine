@@ -18,6 +18,6 @@ public class Workspace {
     private String color;
     private String description;
     private List<Project> projects;
-    private List<User> members;
+    private List<String> memberIds;
 
 }

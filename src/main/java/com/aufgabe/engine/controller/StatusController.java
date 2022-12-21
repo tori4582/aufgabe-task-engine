@@ -10,9 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.NoSuchElementException;
 
+import static com.aufgabe.engine.common.ApplicationUtils.controllerWrapper;
 import static com.aufgabe.engine.common.ExceptionLogger.logInvalidAction;
+import static java.util.Optional.ofNullable;
 
 @Controller
 @RequiredArgsConstructor
@@ -29,6 +32,7 @@ public class StatusController {
             Status preparedStatus = Status.builder()
                     .name(req.getStatusName())
                     .description(req.getDescription())
+                    .color(req.getColor())
                     .build();
             return ResponseEntity.ok(statusService.createStatus(
                     project,
@@ -43,13 +47,11 @@ public class StatusController {
 
     @GetMapping("/projects/{projectId}/status")
     public ResponseEntity<?> getStatusesOfProject(@PathVariable String projectId) {
-        try {
+
+        return controllerWrapper(() -> {
             Project project = projectService.getProject(projectId);
-            return ResponseEntity.ok(project.getStatusIds());
-        } catch (NoSuchElementException e) {
-            logInvalidAction(e);
-            return ResponseEntity.notFound().build();
-        }
+            return ofNullable(project.getStatusIds()).orElse(Collections.emptyList());
+        });
     }
 
     @DeleteMapping("/projects/{projectId}/status/{statusId}")
@@ -67,15 +69,10 @@ public class StatusController {
     @GetMapping("/projects/{projectId}/status/{statusId}")
     public ResponseEntity<?> getStatusDetails(@PathVariable String projectId,
                                        @PathVariable String statusId) {
-        try {
+        return controllerWrapper(() -> {
             Project project = projectService.getProject(projectId);
-            return ResponseEntity.ok(statusService.getStatusDetails(project, statusId));
-        } catch (NoSuchElementException e) {
-            logInvalidAction(e);
-            return ResponseEntity.notFound().build();
-        }
+            return statusService.getStatusDetails(project, statusId);
+        });
     }
-
-
 
 }

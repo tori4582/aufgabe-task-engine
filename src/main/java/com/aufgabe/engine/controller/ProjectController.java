@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import static com.aufgabe.engine.common.ApplicationUtils.controllerWrapper;
 import static com.aufgabe.engine.common.ExceptionLogger.getNotImplementedResponse;
 import static com.aufgabe.engine.common.ExceptionLogger.logInvalidAction;
 
@@ -37,12 +38,7 @@ public class ProjectController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getProjectByName(@PathVariable String id) {
-        try {
-            return ResponseEntity.ok(projectService.getProject(id));
-        } catch (NoSuchElementException e) {
-            logInvalidAction(e);
-            return ResponseEntity.notFound().build();
-        }
+        return controllerWrapper(() -> projectService.getProject(id));
     }
 
     @PostMapping("/update")

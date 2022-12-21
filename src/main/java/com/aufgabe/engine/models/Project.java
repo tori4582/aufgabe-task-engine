@@ -22,8 +22,7 @@ public class Project {
     private String color;
     private String description;
     private List<String> statusIds;
-    private List<Task> tasks;
     private PermissionSettings permissions;
     private List<Tag> tags;
-    private List<User> members;
+    private List<String> memberIds;
 }

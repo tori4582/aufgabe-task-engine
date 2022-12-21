@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import java.util.Optional;
 
+import static com.aufgabe.engine.common.ApplicationUtils.controllerWrapper;
 import static com.aufgabe.engine.common.ExceptionLogger.logInvalidAction;
 import static com.aufgabe.engine.common.ExceptionLogger.logUnexpectedIssue;
 
@@ -56,6 +57,11 @@ public class UserController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
 
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<?> getAllUsers() {
+        return controllerWrapper(userService::getAllUsers);
     }
 
     @PostMapping("/issue-forget-pass-mail")
