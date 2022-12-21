@@ -24,8 +24,8 @@ public class UserService {
     private final MailService mailService;
     private final ResetPasswordCredentialsService resetPasswordCredentialsService;
 
-    @Value("ple")
-    private final String hostUrl;
+//    @Value("ple")
+//    private final String hostUrl;
 
     public List<User> search(String identifier) {
         return (identifier.contains("@"))
@@ -57,9 +57,9 @@ public class UserService {
         return this.resetPasswordCredentialsService.acceptResetCredential(credential);
     }
 
-    public void issueWorkspaceAllocation(User receiver) throws MessagingException {
-        String
-    }
+//    public void issueWorkspaceAllocation(User receiver) throws MessagingException {
+//        String
+//    }
 
 
     public User signUp(GeneralUserRequest request) {
